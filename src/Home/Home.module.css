@@ -1,0 +1,43 @@
+main {
+    justify-items: center;
+    align-items: center;
+    text-align: center;
+    justify-self: center;
+}
+
+.intro {
+    display: grid;
+    gap: 20px;
+    grid-template-rows: repeat(4, 1fr);;
+    justify-items: center;
+    align-items: center;
+    text-align: center;
+    background-color: #B8C5D6;
+    color: #272d2d;
+    border-radius: 10px;
+    box-shadow: 5px 5px 5px rgb(0, 0, 0, 0.5);
+    padding: 20px;
+    margin: 0px;
+    width: 80%;
+    height: 50vh; 
+}
+
+.authorContainer {
+    justify-items: center;
+    align-items: center;
+    text-align: center;
+    width: 80%;
+    margin: 20px;
+    height: auto;
+}
+
+.button {
+    background-color: #A39BA8;
+    font-weight: bold;
+    width: 40%;
+    text-align: center;
+    justify-self: center;
+    border-radius: 5px;
+    box-shadow: 5px 5px 5px rgb(0, 0, 0, 0.5);
+    cursor: pointer;
+}

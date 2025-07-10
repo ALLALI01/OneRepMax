@@ -1,0 +1,24 @@
+footer {
+    display: grid;
+    grid-template-rows: 1fr;
+    text-align: center;
+    align-items: end;
+    background-color: #272d2d;
+    color: #edf5fc;
+    width: 100%;
+    height: 5vh;
+}
+
+h6 {
+    margin: 10px;
+}
+
+
+
+/* Color Scheme
+color: gunmetal #272d2d;
+color: rose quartz #A39BA8;
+color: powder blue #B8C5D6;
+color: alice blue #EDF5FC;
+color: emerald #23CE6B;
+*/
