@@ -1,12 +1,11 @@
 footer {
     display: grid;
-    grid-template-rows: 1fr;
-    text-align: center;
     align-items: end;
     background-color: #272d2d;
     color: #edf5fc;
-    width: 100%;
+    text-align: center;
     height: 5vh;
+    align-self: end;
 }
 
 h6 {

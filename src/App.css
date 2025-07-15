@@ -10,8 +10,8 @@ body {
 #root {
     display: grid;
     grid-template-rows: 2fr 7fr 1fr;
+    gap: 5px;
     justify-content: center;
-    align-items: center;
     height: 100vh;
 }
 

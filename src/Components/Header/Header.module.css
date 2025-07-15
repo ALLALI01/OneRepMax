@@ -17,13 +17,17 @@ header {
     padding: 10px;
 }
 
-a {
+.nav button {
+    background-color: #272d2d;
     color: #b8c5d6;
-    text-decoration: none;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    cursor: pointer;
 }
 
-a:hover {
-    color: #23c36b;
+.nav button:hover {
+    color: aqua;
 }
 
 /* Color Scheme

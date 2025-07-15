@@ -1,5 +1,7 @@
 import styles from './Home.module.css';
-import Card from '../Card/Card.jsx';
+import Header from '../../Components/Header/Header.jsx';
+import Footer from '../../Components/Footer/Footer.jsx';
+import Card from '../../Components/Card/Card.jsx';
 import {useState} from 'react';
 
 function Home() {
@@ -8,6 +10,8 @@ function Home() {
         setShowCard((prev) => !prev);
     };
     return(
+        <>
+        <Header />
         <main className={styles.main}>
             <div className={styles.intro}>
                 <h2>Welcome!</h2>
@@ -17,11 +21,13 @@ function Home() {
             </div>
             <div className={styles.authorContainer}>
                 <button onClick={handleClick} className={styles.button}>
-                    {showCard ? "Hide Author" : "Website Designed By"}
+                    {showCard ? "Hide Author" : "Website Design By"}
                 </button>
                     {showCard && <Card />}
             </div>
         </main>
+        <Footer />
+        </>
     );
 }
 
