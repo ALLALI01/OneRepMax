@@ -11,6 +11,19 @@ import styles from './Gifs.module.css';
 //     }
 // }
 
+const URL = "https://www.exercisedb.dev"
+
+async function grabData() {
+    try {
+        const response = await fetch(`${URL}/exercises`);
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error fetching exercises:', error);
+        return [];
+    }
+}
+
 function Gifs() {
     return (
         <div className={styles.gifContainer}>

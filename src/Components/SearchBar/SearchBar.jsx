@@ -1,29 +1,39 @@
+import React, {useState} from 'react';
+import { FaSearch } from 'react-icons/fa';
 import styles from './SearchBar.module.css';
 
-// async function fetchExercises(searchTerm) {
-//     const response = await fetch(`https://wger.de/api/v2/exercise/?name=${searchTerm}`);
-//     if (!response.ok) {
-//         throw new Error('Network response was not ok');
-//     }
-//     return response.json();
-// }
+const URL = "https://www.exercisedb.dev/api/v1/exercises";
 
-function SearchBar({ searchTerm, setSearchTerm }) {
-    const handleChange = (e) => {
-        setSearchTerm(e.target.value);
+function SearchBar({ setResults }) {
+    const [input, setInput] = useState('');
+
+    const fetchData = (value) => {
+        fetch(`${URL}`)
+            .then((response) => response.json())
+            .then((json) => {
+                const results = json.filter((data) => { // WHY IS THIS SAYING JASON.FILTER IS NOT A FUNCTION? DRIVING ME BONKERS BRO
+                    return value && data && data.name && data.name.toLowerCase().includes(value.toLowerCase());
+                });
+                console.log(results);
+                setResults(results);
+            });
+    };
+
+    const handleChange = (value) => {
+        setInput(value);
+        fetchData(value);
     };
 
     return (
-        <div className={styles.searchBar}>
-            <input
-                id="exerciseSearch"
-                name="exerciseSearch"
-                type="text"
-                placeholder="Search exercises..."
-                value={searchTerm}
-                onChange={handleChange}
-                className={styles.input}
+        <div className={styles.searchContainer}>
+            <FaSearch className={styles.searchIcon}/>
+            <input className={styles.searchForm}
+            type="text"
+            value={input}
+            onChange={(e) => handleChange(e.target.value)}
+            placeholder="Search for exercises..."
             />
+        <button type="submit" className={styles.searchSubmit}>Search</button>
         </div>
     );
 }

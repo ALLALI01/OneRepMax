@@ -8,7 +8,6 @@ main {
 .intro {
     display: grid;
     gap: 20px;
-    grid-template-rows: repeat(4, 1fr);;
     justify-items: center;
     align-items: center;
     background-color: #B8C5D6;
@@ -43,11 +42,12 @@ main {
     color: aqua;
 }
 
+.button:active {
+    color: black;
+}
+
 @media screen and (min-width: 769px) {
     main {
         grid-template-columns: 1fr 1fr;
-    }
-    .intro {
-        height: 50vh;
     }
 }

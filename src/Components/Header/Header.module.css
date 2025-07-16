@@ -5,7 +5,7 @@ header {
     align-items: center;
     background-color: #272d2d;
     color: #edf5fc;
-    width: 100%;
+    width: 100vw;
     height: 20vh;
 }
 
@@ -30,11 +30,15 @@ header {
     color: aqua;
 }
 
+.nav button:active {
+    color: black;
+}
+
 /* Color Scheme
 color: gunmetal #272d2d;
 color: rose quartz #A39BA8;
 color: powder blue #B8C5D6;
 color: alice blue #EDF5FC;
-color: emerald #23CE6B;
+color: aqua #23CE6B;
 */
 
