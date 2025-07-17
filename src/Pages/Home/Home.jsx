@@ -21,7 +21,7 @@ function Home() {
             </div>
             <div className={styles.authorContainer}>
                 <button onClick={handleClick} className={styles.button}>
-                    {showCard ? "Hide Author" : "Website Design By"}
+                    {showCard ? "Hide Developer" : "Website Design By"}
                 </button>
                     {showCard && <Card />}
             </div>

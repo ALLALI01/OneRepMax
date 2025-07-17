@@ -12,6 +12,14 @@ h6 {
     margin: 10px;
 }
 
+a {
+    color: #b8c5d6;
+    text-decoration: none;
+}
+
+a:hover {
+    color: aqua;
+}
 
 
 /* Color Scheme

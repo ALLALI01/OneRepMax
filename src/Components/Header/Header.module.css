@@ -34,6 +34,10 @@ header {
     color: black;
 }
 
+.nav button:focus {
+    outline: none;
+}
+
 /* Color Scheme
 color: gunmetal #272d2d;
 color: rose quartz #A39BA8;

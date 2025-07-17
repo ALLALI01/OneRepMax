@@ -5,7 +5,6 @@ import SearchBar from '../../Components/SearchBar/SearchBar.jsx';
 import SearchResultsList from '../../Components/SearchBar/SearchResultsList.jsx';
 import Gifs from '../../Components/Gifs/Gifs.jsx';
 import styles from './Exercises.module.css';
-import '../../App.css';
 
 
 function Exercises() {
@@ -14,8 +13,8 @@ function Exercises() {
     return(
         <>
             <Header />
-            <SearchBar setResults={setResults}/>
-            <SearchResultsList results={results}/>
+            <SearchBar setResults={setResults} />
+            <SearchResultsList results={results} />
             <Gifs />
             <Footer />
         </>
