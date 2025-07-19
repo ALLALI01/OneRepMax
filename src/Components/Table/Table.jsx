@@ -13,17 +13,18 @@ function Table() {
                             <th>Sets</th>
                             <th>Reps</th>
                             <th>Weight</th>
+                            <th>Current Max</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {/* Example data, replace with actual routine data */}
                         {Array.from({ length: 12 }, (_, i) => (
                             <tr key={i}>
                                 <td>{i + 1}</td>
-                                <td>Bench Press</td>
+                                <td>Pulled from API</td>
                                 <td>3</td>
                                 <td>8-10</td>
                                 <td>Calculated by MAX</td>
+                                <td><input></input></td>
                             </tr>
                         ))}
                     </tbody>
