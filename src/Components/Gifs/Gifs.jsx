@@ -1,4 +1,5 @@
 import styles from './Gifs.module.css';
+import placeholderImg from '../../assets/placeholderImg.png';
 
 
 function Gifs({exercises = [], onGifSelect}) {
@@ -6,7 +7,10 @@ function Gifs({exercises = [], onGifSelect}) {
         onGifSelect(exerciseId);
     }
     if (exercises.length === 0) {
-        return <div className={styles.noGifs}>No exercises selected</div>;
+        return <div className={styles.noGifs}>
+            <p>No exercises selected</p>
+            <img src={placeholderImg} alt="Placeholder Image" className={styles.placeholderImg}/>
+        </div>;
     } else {
         return (
             <div className={styles.gifContainer}>
@@ -14,7 +18,7 @@ function Gifs({exercises = [], onGifSelect}) {
                     <div key={exercise.id} className={styles.gifDetails}>
                         <h3>{exercise.name}</h3>
                         <p>{exercise.instructions || 'No instructions available'}</p>
-                        <img src={exercise.gifUrl || 'https://via.placeholder.com/150'}
+                        <img src={exercise.gifUrl || placeholderImg}
                         alt={`${exercise.name} demonstration`} className={styles.gif}
                         onClick={() => handleGifClick(exercise.id)}/>
                     </div>

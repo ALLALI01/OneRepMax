@@ -69,6 +69,7 @@ export default Table;
 // Each cycle should have a caption with the cycle number
 // Each week should have each exercise listed, and sets/reps for that week
 // Each exercise should have weight calculation based on 1RM
+// Pull exercises from local storage
 
 // Week 1: 4 sets of 6, 70% of 1RM
 // Week 2: 4 sets of 6, 72% of 1RM
