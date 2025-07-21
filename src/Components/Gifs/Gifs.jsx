@@ -9,7 +9,7 @@ function Gifs({exercises = [], onGifSelect}) {
     if (exercises.length === 0) {
         return <div className={styles.noGifs}>
             <p>No exercises selected</p>
-            <img src={placeholderImg} alt="Placeholder Image" className={styles.placeholderImg}/>
+            <a href="https://www.exercisedb.dev/" target="_blank"><img src={placeholderImg} alt="Exercise DB image" className={styles.placeholderImg}/></a>
         </div>;
     } else {
         return (
@@ -29,6 +29,11 @@ function Gifs({exercises = [], onGifSelect}) {
 }
 
 export default Gifs;
+
+// TO DO:
+// Need to save data to local storage to pull into routine page
+// Need ability to select more than 1 exercise at a time to display
+// Issue with unique keys in map function, need to use exercise.id instead of index
 
 
 // Demo Gifs

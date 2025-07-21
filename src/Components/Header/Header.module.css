@@ -28,6 +28,8 @@ header {
 
 .nav button:hover {
     color: aqua;
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
 }
 
 .nav button:active {
@@ -36,6 +38,12 @@ header {
 
 .nav button:focus {
     outline: none;
+}
+
+.siteTitle:hover {
+    color: aqua;
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
 }
 
 /* Color Scheme

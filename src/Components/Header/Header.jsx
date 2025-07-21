@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 function Header() {
     return(
         <header>
-            <h1>One Rep Max</h1>
+            <h1 className={styles.siteTitle}>One Rep Max</h1>
             <nav className={styles.nav}>
                 <Link to='/'>
                     <button>Home</button>

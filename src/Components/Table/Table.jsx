@@ -35,6 +35,7 @@ function Table() {
             <th>Exercise</th>
             <th>Sets</th>
             <th>Reps</th>
+            <th>Last Set Actual Reps</th>
             <th>Weight</th>
           </tr>
         </thead>
@@ -45,8 +46,9 @@ function Table() {
                 <tr key={`${weekData.week}-${index}`}>
                   {index === 0 && <td rowSpan={weekData.exercises.length}>{weekData.week}</td>}
                   <td>{weekData.exercises}</td>
-                  <td>{weekData.sets}</td>
-                  <td>{weekData.reps}</td>
+                  {index === 0 && <td rowSpan={weekData.exercises.length}>{weekData.sets}</td>}
+                  {index === 0 && <td rowSpan={weekData.exercises.length}>{weekData.reps}</td>}
+                  <td><input placeholder="Input Last Set Reps"></input></td>
                   <td>{weekData.weight}</td>
                 </tr>
               ))}
@@ -64,12 +66,18 @@ function Table() {
 
 export default Table;
 
-
+// DONE:
 // Separate into tables of "12 week cycles" starting with a test week, add button to repeat cycle
-// Each cycle should have a caption with the cycle number
 // Each week should have each exercise listed, and sets/reps for that week
-// Each exercise should have weight calculation based on 1RM
-// Pull exercises from local storage
+
+// TO DO:
+// Each cycle should have a caption with a unique cycle number
+// Pull exercises from local storage to persist data from exercises page
+// Write functionality to calculate weight based on 1RM input from TEST WEEK
+// Add functionality to input last set actual reps for each exercise
+// Add functionality to increase or decrease weight based on previous week last set actual reps for dynamic routine adjustment (IE: if else statement, if last set actual reps
+// is less than target, decrease weight by 5%, if last set actual reps is greater than target, increase weight by 5%)
+// Add functionality to save the routine to local storage to track progress
 
 // Week 1: 4 sets of 6, 70% of 1RM
 // Week 2: 4 sets of 6, 72% of 1RM
@@ -83,4 +91,4 @@ export default Table;
 // Week 10: 3 sets of 2, 91% of 1RM
 // Week 11: 3 sets of 1, 97% of 1RM
 // Week 12: 4 sets of 3, 65% of 1RM, REST WEEK
-// Test Week 13: The goal is to hit a higher 1RM for the next routine cycle
+// Test Week: The goal is to hit a higher 1RM for the next routine cycle
