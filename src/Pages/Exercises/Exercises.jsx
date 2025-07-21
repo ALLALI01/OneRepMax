@@ -9,13 +9,23 @@ import styles from './Exercises.module.css';
 
 function Exercises() {
     const [results, setResults] = useState([]);
+    const [selectedExercises, setSelectedExercises] = useState([]);
 
+    const addExercise = (exercise) => {
+        if (!selectedExercises.find((ex) => ex.id === exercise.id)) {
+            setSelectedExercises(prev => [...prev, exercise]);
+        }
+    }
+    const removeExercise = (exerciseId) => {
+        setSelectedExercises(prev => prev.filter(ex => ex.id !== exerciseId));
+    };
+    
     return(
         <>
             <Header />
             <SearchBar setResults={setResults} />
-            <SearchResultsList results={results} />
-            <Gifs />
+            <SearchResultsList results={results} onExerciseSelect={addExercise} />
+            <Gifs exercises={selectedExercises} onGifSelect={removeExercise} />
             <Footer />
         </>
     );

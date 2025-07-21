@@ -2,13 +2,17 @@ import React, { useState } from 'react';
 import SearchResult from './SeachResult.jsx';
 import styles from './SearchResultsList.module.css';
 
-function SearchResultsList({ results }) {
+function SearchResultsList({ results, onExerciseSelect }) {
     return(
         <div className={styles.resultsList}>
             {
                 results.map((result, index) => {
                     return (
-                        <SearchResult result={result} key={index}/>
+                        <SearchResult
+                        result={result}
+                        key={index}
+                        onSelect={onExerciseSelect}
+                        />
                     );
                 })
             }
