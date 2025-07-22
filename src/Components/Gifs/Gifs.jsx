@@ -1,8 +1,31 @@
+import React, { useState, useEffect } from 'react';
 import styles from './Gifs.module.css';
 import placeholderImg from '../../assets/placeholderImg.png';
 
 
 function Gifs({exercises = [], onGifSelect}) {
+    const [selected, setSelected] = useState(() => {
+        const json = localStorage.getItem('exercises.selected');
+        return json ? JSON.parse(json) : [];
+    });
+
+    const handleSelect = (item) => {
+        setSelected((prev) => {
+            if (!prev.some(x => x.id === item.id)) {
+                return [...prev, item];
+            }
+            return prev;
+        });
+    }
+
+    const handleRemove = (item) => {
+        setSelected((prev) => prev.filter(x => x.id !== item.id));
+    }
+
+    useEffect(() => {
+        localStorage.setItem('selectedExercises', JSON.stringify(selected));
+    }, [selected]);
+
     const handleGifClick = (exerciseId) => {
         onGifSelect(exerciseId);
     }
@@ -15,7 +38,7 @@ function Gifs({exercises = [], onGifSelect}) {
         return (
             <div className={styles.gifContainer}>
                 {exercises.map((exercise) => (
-                    <div key={exercise.id} className={styles.gifDetails}>
+                    <div key={exercise.exerciseId} className={styles.gifDetails}>
                         <h3>{exercise.name}</h3>
                         <p>{exercise.instructions || 'No instructions available'}</p>
                         <img src={exercise.gifUrl || placeholderImg}
@@ -32,8 +55,7 @@ export default Gifs;
 
 // TO DO:
 // Need to save data to local storage to pull into routine page
-// Need ability to select more than 1 exercise at a time to display
-// Issue with unique keys in map function, need to use exercise.id instead of index
+// Need ability to select more than 1 exercise at a time to display, use array?
 
 
 // Demo Gifs

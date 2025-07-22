@@ -4,8 +4,6 @@ import Footer from '../../Components/Footer/Footer.jsx';
 import SearchBar from '../../Components/SearchBar/SearchBar.jsx';
 import SearchResultsList from '../../Components/SearchBar/SearchResultsList.jsx';
 import Gifs from '../../Components/Gifs/Gifs.jsx';
-import styles from './Exercises.module.css';
-
 
 function Exercises() {
     const [results, setResults] = useState([]);

@@ -12,30 +12,26 @@
     width: 80%;
 }
 
-table, th, td {
-    border: 4px solid #272d2d;
-    border-collapse: collapse;
-
-}
-
 .tableContainer {
     width: 80%;
     margin: 20px auto;
     padding: 20px;
     border: 1px solid #ddd;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    max-height: 600px;
-    overflow-y: scroll;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
 }
 
 table {
-    box-shadow: 5px 5px 5px rgb(0, 0, 0, 0.5);
+    box-shadow: 0px 0px 8px rgb(0, 0, 0, 0.5);
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
-    max-height: 600px;
-    overflow-y: scroll;
+}
+
+table, th, td {
+    border: 4px solid #272d2d;
+    border-collapse: collapse;
+
 }
 
 th, td {
@@ -45,6 +41,21 @@ th, td {
 
 th {
     background-color: #B8C5D6;
+}
+
+.cycleCaption {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    width: 40%;
+    box-shadow: 5px 5px 5px rgb(0, 0, 0, 0.5);
+}
+
+.cycleCaption:hover {
+    transform: scale(1.01);
+    transition: transform 0.3s ease;
+    box-shadow: 5px 5px 5px rgb(0, 0, 0, 0.8);
 }
 
 .buttonContainer {

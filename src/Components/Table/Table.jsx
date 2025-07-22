@@ -24,42 +24,59 @@ function Table() {
         setWorkoutCycle(prevCycle => [...prevCycle, ...initialWorkoutCycle]);
     }
 
+  const cycles = [];
+  for (let i = 0; i < workoutCycle.length; i += 13) {
+    cycles.push(workoutCycle.slice(i, i + 13));
+  }
+
+  const captionColors = [
+    '#8785FF', // tropical indigo
+    '#00B7FF', // deep sky blue
+    '#0FFFFF', // aqua
+    '#20B2AA', // light sea green
+    '#62FF62', // screamin' green
+  ];
+
   return (
     <div className={styles.routineContainer}>
-      <h1>Your 12-Week Routine</h1>
-      <table className={styles.tableContainer}>
-        <caption>Cycle 1</caption>
-        <thead>
-          <tr>
-            <th>Week</th>
-            <th>Exercise</th>
-            <th>Sets</th>
-            <th>Reps</th>
-            <th>Last Set Actual Reps</th>
-            <th>Weight</th>
-          </tr>
-        </thead>
-        <tbody>
-          {workoutCycle.map((weekData) => (
-            <React.Fragment key={weekData.week}>
-              {weekData.exercises.map((exercise, index) => (
-                <tr key={`${weekData.week}-${index}`}>
-                  {index === 0 && <td rowSpan={weekData.exercises.length}>{weekData.week}</td>}
-                  <td>{weekData.exercises}</td>
-                  {index === 0 && <td rowSpan={weekData.exercises.length}>{weekData.sets}</td>}
-                  {index === 0 && <td rowSpan={weekData.exercises.length}>{weekData.reps}</td>}
-                  <td><input placeholder="Input Last Set Reps"></input></td>
-                  <td>{weekData.weight}</td>
-                </tr>
-              ))}
-            </React.Fragment>
-          ))}
-        </tbody>
-      </table>
-        <div className={styles.buttonContainer}>
-            <button className={styles.tableButton} onClick={repeatCycle}>Repeat Cycle</button>
-            <button className={styles.tableButton} onClick={() => alert('Calculate functionality not implemented yet.')}>Calculate Weight</button>
-        </div>
+      <h1>Your Custom Routine</h1>
+      {cycles.map((cycle, cycleIdx) => (
+        <table className={styles.tableContainer} key={cycleIdx}>
+          <caption
+            className={styles.cycleCaption} style={{ backgroundColor: captionColors[cycleIdx % captionColors.length] }}>Cycle {cycleIdx + 1}
+          </caption>
+          <thead>
+            <tr>
+              <th>Week</th>
+              <th>Exercise</th>
+              <th>Sets</th>
+              <th>Reps</th>
+              <th>Last Set Actual Reps</th>
+              <th>Weight</th>
+            </tr>
+          </thead>
+          <tbody>
+            {cycle.map((weekData) => (
+              <React.Fragment key={weekData.week + '-' + cycleIdx}>
+                {weekData.exercises.map((exercise, index) => (
+                  <tr key={`${weekData.week}-${index}-${cycleIdx}`}>
+                    {index === 0 && <td rowSpan={weekData.exercises.length}>{weekData.week}</td>}
+                    <td>{exercise}</td>
+                    {index === 0 && <td rowSpan={weekData.exercises.length}>{weekData.sets}</td>}
+                    {index === 0 && <td rowSpan={weekData.exercises.length}>{weekData.reps}</td>}
+                    <td><input placeholder="Input Last Set Reps"></input></td>
+                    <td>{weekData.weight}</td>
+                  </tr>
+                ))}
+              </React.Fragment>
+            ))}
+          </tbody>
+        </table>
+      ))}
+      <div className={styles.buttonContainer}>
+        <button className={styles.tableButton} onClick={repeatCycle}>Repeat Cycle</button>
+        <button className={styles.tableButton} onClick={() => alert('Calculate functionality not implemented yet.')}>Calculate Weight</button>
+      </div>
     </div>
   );
 }
@@ -69,15 +86,17 @@ export default Table;
 // DONE:
 // Separate into tables of "12 week cycles" starting with a test week, add button to repeat cycle
 // Each week should have each exercise listed, and sets/reps for that week
+// Each cycle should have a caption with a unique cycle number
+// Add color changing cycles for separation
 
 // TO DO:
-// Each cycle should have a caption with a unique cycle number
 // Pull exercises from local storage to persist data from exercises page
 // Write functionality to calculate weight based on 1RM input from TEST WEEK
 // Add functionality to input last set actual reps for each exercise
 // Add functionality to increase or decrease weight based on previous week last set actual reps for dynamic routine adjustment (IE: if else statement, if last set actual reps
 // is less than target, decrease weight by 5%, if last set actual reps is greater than target, increase weight by 5%)
 // Add functionality to save the routine to local storage to track progress
+
 
 // Week 1: 4 sets of 6, 70% of 1RM
 // Week 2: 4 sets of 6, 72% of 1RM
