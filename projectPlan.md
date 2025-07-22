@@ -23,25 +23,13 @@
 
 **Design the website layout** 
 
-- [ ] Create wireframes or mockups 
+- [x] Create wireframes or mockups 
 
-- [ ] Implement the layout using HTML and CSS 
-
-## Incorporate Graphs from Alex's Excel Sheets 
-
-- [ ] Export graphs from Excel as images or data files 
-
-- [ ] Choose a JavaScript charting library (e.g., Chart.js, D3.js) 
-
-- [ ] Integrate the charting library into the website 
-
-- [ ] Load the exported data into the charts 
-
-- [ ] Style the charts to match the website design 
+- [x] Implement the layout using HTML and CSS 
 
 ## Automate Calculations Using a Form 
 
-- [ ] Identify the calculations needed from Alex's graphs 
+- [x] Identify the calculations needed from Alex's graphs 
 
 - [ ] Create a form on the website to collect user input 
 
@@ -61,17 +49,17 @@
 
 ## Add form demonstration gifs from external API 
 
-- [x] Choose API ([https://exercisedb.dev/api/v1/exercises](https://exercisedb.dev/api/v1/exercises)) 
+- [x] Choose API ([https://exercisedb.dev/api/v1/exercises]) 
 
 - [x] Fetch data from API 
 
-- [ ] Parse and extract relevant gif URLs from the API response 
+- [x] Parse and extract relevant gif URLs from the API response 
 
-- [ ] Integrate gifs into the form UI 
+- [x] Integrate gifs into the form UI 
 
-- [ ] Display gifs based on user input or form selections 
+- [x] Display gifs based on user input or form selections 
 
-- [ ] Handle loading and error states for API requests 
+- [x] Handle loading and error states for API requests 
 
 - [ ] Test gif display functionality across devices and browsers 
 
@@ -88,13 +76,13 @@
 
 ## Completed Tasks 
 
-- [ ] Create the Website 
+- [x] Create the Website 
 
-- [ ] Incorporate Graphs from Alex's Excel Sheets 
+- [x] Incorporate Table from Alex's Excel Sheets 
 
 - [ ] Automate Calculations Using a Form 
 
-- [ ] Use external API to display demonstrations 
+- [x] Use external API to display demonstrations 
 
 - [ ] Final Steps 
 
@@ -104,23 +92,21 @@
 
 **Mandatory: 3 features** 
 
- 
-
 ### Section I 
 
-- [ ] Analyze data stored in arrays, objects, sets, or maps and display information about it in your app. 
+- [x] Analyze data stored in arrays, objects, sets, or maps and display information about it in your app. 
 
 - [ ] Use a regular expression to validate user input and either prevent the invalid input or inform the user about it (in all cases prevent invalid input from being stored or saved). 
 
 - [x] Create a function that accepts two or more input parameters and returns a value that is calculated or determined by the inputs. Basic math functions don’t count (e.g., addition, etc). 
 
-- [x] Visualize data in a user-friendly way (e.g., graph, chart, etc). This can include using libraries like Chart.js. 
+- [ ] Visualize data in a user-friendly way (e.g., graph, chart, etc). This can include using libraries like Chart.js. 
 
 - [ ] Convert user input between two formats and display the result (e.g., Fahrenheit to Celsius, kilograms to pounds, etc). 
 
 - [ ] Calculate and display data based on an external factor (e.g., get the current date, and display how many days remain until some event). 
 
-- [ ] Persist data to an internal API and make the stored data accessible in your app (including after reload/refresh). This can be achieved either by using local storage or building your own API that stores data into a JSON file. 
+- [x] Persist data to an internal API and make the stored data accessible in your app (including after reload/refresh). This can be achieved either by using local storage or building your own API that stores data into a JSON file. 
 
  
 

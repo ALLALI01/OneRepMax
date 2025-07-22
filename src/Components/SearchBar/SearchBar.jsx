@@ -53,3 +53,6 @@ function SearchBar({ setResults }) {
 }
 
 export default SearchBar;
+
+// TO DO:
+// Switch pages between all 15 pages of data in API call
