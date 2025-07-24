@@ -1,8 +1,11 @@
 import styles from './SearchResult.module.css';
 
-function SearchResult({ result, onSelect }) {
+function SearchResult({ result, onSelect, onClearSearch }) {
     const handleClick = () => {
         onSelect(result);
+        if (onClearSearch) {
+            onClearSearch();
+        }
     }
 
     return (

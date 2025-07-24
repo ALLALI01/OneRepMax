@@ -35,6 +35,11 @@ function SearchBar({ setResults }) {
         fetchData(value);
     };
 
+    const clearSearch = () => {
+        setInput('');
+        setResults([]);
+    }
+
     return (
         <div className={styles.searchContainer}>
             <FaSearch className={styles.searchIcon}/>

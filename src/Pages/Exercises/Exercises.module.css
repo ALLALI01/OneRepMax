@@ -1,0 +1,26 @@
+.selectedExercises {
+    padding: 10px;
+    margin: 10px;
+    background-color: #B8C5D6;
+    border-radius: 10px;
+    width: 80%;
+    justify-self: center;
+}
+
+.clearButton {
+    background-color: #272d2d;
+    color: #B8C5D6;
+    border-radius: 10px;
+    border: none;
+    box-shadow: 5px 5px 5px rgb(0, 0, 0, 0.5);
+    justify-self: end;
+}
+
+.clearButton:hover {
+    background-color: aqua;
+    color: #272d2d;
+}
+
+.clearButton:active {
+    box-shadow: 0px 0px 8px rgb(0, 0, 0, 0.8);
+}

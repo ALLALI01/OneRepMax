@@ -43,7 +43,7 @@ function Gifs({exercises = [], onGifSelect}) {
                         <p>{exercise.instructions || 'No instructions available'}</p>
                         <img src={exercise.gifUrl || placeholderImg}
                         alt={`${exercise.name} demonstration`} className={styles.gif}
-                        onClick={() => handleGifClick(exercise.id)}/>
+                        onClick={() => handleGifClick(exercise.exerciseId)}/>
                     </div>
                 ))}
             </div>

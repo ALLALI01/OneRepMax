@@ -58,6 +58,10 @@ th {
     box-shadow: 5px 5px 5px rgb(0, 0, 0, 0.8);
 }
 
+.testWeekInput {
+    text-align: center;
+}
+
 .buttonContainer {
     display: flex;
     justify-content: space-around;

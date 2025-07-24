@@ -2,32 +2,50 @@ import React, { useState } from 'react';
 import styles from './Table.module.css';
 
 function Table() {
-        const initialWorkoutCycle = [
-        { week: "Test Week", sets: 1, reps: 1, exercises: ["Test1", "Test2", "Test3"], weight: "{input}"},
-        { week: 1, sets: 4, reps: 6, exercises: ["Test1", "Test2", "Test3"], weight: "70% of 1RM"},
-        { week: 2, sets: 4, reps: 6, exercises: ["Test1", "Test2", "Test3"], weight: "72% of 1RM"},
-        { week: 3, sets: 4, reps: 5, exercises: ["Test1", "Test2", "Test3"], weight: "76% of 1RM"},
-        { week: "4 Rest", sets: 4, reps: 6, exercises: ["Test1", "Test2", "Test3"], weight: "60% of 1RM, REST WEEK"},
-        { week: 5, sets: 3, reps: 5, exercises: ["Test1", "Test2", "Test3"], weight: "78% of 1RM"},
-        { week: 6, sets: 4, reps: 4, exercises: ["Test1", "Test2", "Test3"], weight: "83% of 1RM"},
-        { week: 7, sets: 4, reps: 3, exercises: ["Test1", "Test2", "Test3"], weight: "87% of 1RM"},
-        { week: "8 Rest", sets: 3, reps: 5, exercises: ["Test1", "Test2", "Test3"], weight: "60% of 1RM, REST WEEK"},
-        { week: 9, sets: 4, reps: 3, exercises: ["Test1", "Test2", "Test3"], weight: "88% of 1RM"},
-        { week: 10, sets: 3, reps: 2, exercises: ["Test1", "Test2", "Test3"], weight: "91% of 1RM"},
-        { week: 11, sets: 3, reps: 1, exercises: ["Test1", "Test2", "Test3"], weight: "97% of 1RM"},
-        { week: "12 Rest", sets: 4, reps: 3, exercises: ["Test1", "Test2", "Test3"], weight: "65% of 1RM, REST WEEK"},
-    ]
+  
+  const initialWorkoutCycle = [
+    { week: "Test Week", sets: 1, reps: 1, exercises: ["Test1", "Test2", "Test3"], weight: "{testWeight}" },
+    { week: 1, sets: 4, reps: 6, exercises: ["Test1", "Test2", "Test3"], weight: "70% of 1RM" },
+    { week: 2, sets: 4, reps: 6, exercises: ["Test1", "Test2", "Test3"], weight: "72% of 1RM" },
+    { week: 3, sets: 4, reps: 5, exercises: ["Test1", "Test2", "Test3"], weight: "76% of 1RM" },
+    { week: "4 Rest", sets: 4, reps: 6, exercises: ["Test1", "Test2", "Test3"], weight: "60% rest week" },
+    { week: 5, sets: 3, reps: 5, exercises: ["Test1", "Test2", "Test3"], weight: "78% of 1RM" },
+    { week: 6, sets: 4, reps: 4, exercises: ["Test1", "Test2", "Test3"], weight: "83% of 1RM" },
+    { week: 7, sets: 4, reps: 3, exercises: ["Test1", "Test2", "Test3"], weight: "87% of 1RM" },
+    { week: "8 Rest", sets: 3, reps: 5, exercises: ["Test1", "Test2", "Test3"], weight: "60% rest week" },
+    { week: 9, sets: 4, reps: 3, exercises: ["Test1", "Test2", "Test3"], weight: "88% of 1RM" },
+    { week: 10, sets: 3, reps: 2, exercises: ["Test1", "Test2", "Test3"], weight: "91% of 1RM" },
+    { week: 11, sets: 3, reps: 1, exercises: ["Test1", "Test2", "Test3"], weight: "97% of 1RM" },
+    { week: "12 Rest", sets: 4, reps: 3, exercises: ["Test1", "Test2", "Test3"], weight: "65% rest week" },
+  ];
 
-    const [workoutCycle, setWorkoutCycle] = useState(initialWorkoutCycle);
-
-    const repeatCycle = () => {
-        setWorkoutCycle(prevCycle => [...prevCycle, ...initialWorkoutCycle]);
-    }
+  const [workoutCycle, setWorkoutCycle] = useState(initialWorkoutCycle);
 
   const cycles = [];
   for (let i = 0; i < workoutCycle.length; i += 13) {
     cycles.push(workoutCycle.slice(i, i + 13));
   }
+
+  const [testWeight, setTestWeight] = useState(Array(cycles.length).fill(""));
+
+  const handleTestWeekInput = (e, cycleIdx) => {
+    const testWeight = e.target.value;
+    setTestWeight((prev) => {
+      const updated = [...prev];
+      updated[cycleIdx] = testWeight;
+      return updated;
+    });
+
+    setWorkoutCycle((prev) =>
+      prev.map((week, idx) =>
+        idx === 0 ? { ...week, weight: {testWeight} } : week
+      )
+    );
+  };
+
+  const repeatCycle = () => {
+    setWorkoutCycle((prevCycle) => [...prevCycle, ...initialWorkoutCycle]);
+  };
 
   const captionColors = [
     '#8785FF', // tropical indigo
@@ -51,12 +69,11 @@ function Table() {
               <th>Exercise</th>
               <th>Sets</th>
               <th>Reps</th>
-              <th>Last Set Actual Reps</th>
               <th>Weight</th>
             </tr>
           </thead>
           <tbody>
-            {cycle.map((weekData) => (
+            {cycle.map((weekData, weekIdx) => (
               <React.Fragment key={weekData.week + '-' + cycleIdx}>
                 {weekData.exercises.map((exercise, index) => (
                   <tr key={`${weekData.week}-${index}-${cycleIdx}`}>
@@ -64,8 +81,18 @@ function Table() {
                     <td>{exercise}</td>
                     {index === 0 && <td rowSpan={weekData.exercises.length}>{weekData.sets}</td>}
                     {index === 0 && <td rowSpan={weekData.exercises.length}>{weekData.reps}</td>}
-                    <td><input placeholder="Input Last Set Reps"></input></td>
-                    <td>{weekData.weight}</td>
+                    <td id="tableWeightData">
+                      {weekIdx === 0 ? (
+                        <input
+                          type="number"
+                          name={exercise.name}
+                          id={exercise.exerciseId}
+                          value={testWeight}
+                          onChange={handleTestWeekInput}
+                          placeholder="Enter 1RM"
+                          className={styles.testWeekInput}
+                        />) : (weekData.weight)}
+                    </td>
                   </tr>
                 ))}
               </React.Fragment>

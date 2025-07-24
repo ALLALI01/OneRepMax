@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import SearchResult from './SeachResult.jsx';
 import styles from './SearchResultsList.module.css';
 
-function SearchResultsList({ results, onExerciseSelect }) {
+function SearchResultsList({ results, onExerciseSelect, onClearSearch }) {
     return(
         <div className={styles.resultsList}>
             {
@@ -10,8 +10,9 @@ function SearchResultsList({ results, onExerciseSelect }) {
                     return (
                         <SearchResult
                         result={result}
-                        key={index}
+                        key={result.exerciseId}
                         onSelect={onExerciseSelect}
+                        onClearSearch={onClearSearch}
                         />
                     );
                 })
