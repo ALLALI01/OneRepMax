@@ -1,15 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './Table.module.css';
 
-function Table(selectedExercises) {
-  // Initialize selectedExercises from localStorage
+function Table() {
+
   const [selected, setSelected] = useState(() => {
   const json = localStorage.getItem('exercises.selected');
   return json ? JSON.parse(json) : [];
-});
+  });
+
+  useEffect(() => {
+    localStorage.setItem('selectedExercises', JSON.stringify(selected));
+    }, [selected]);
+
+  const selectedExercises = selected.map(exercise => exercise.name)
   
   const initialWorkoutCycle = [
-    { week: "Test Week", sets: 1, reps: 1, exercises: ["{selectedExercises}"], weight: "{testWeight}" },
+    { week: "Test Week", sets: 1, reps: 1, exercises: [selectedExercises], weight: "{testWeight}" },
     { week: 1, sets: 4, reps: 6, exercises: ["Test1", "Test2", "Test3"], weight: "70% of 1RM" },
     { week: 2, sets: 4, reps: 6, exercises: ["Test1", "Test2", "Test3"], weight: "72% of 1RM" },
     { week: 3, sets: 4, reps: 5, exercises: ["Test1", "Test2", "Test3"], weight: "76% of 1RM" },

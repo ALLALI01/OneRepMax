@@ -68,7 +68,7 @@ export default SearchBar;
 
 // TO DO:
 // Switch pages between all 15 pages of data in API call
-// Clear text from the search bar when a result is clicked
+// Clear text from the search bar when a result is clicked {function clearSearchValue()}
 
 // DONE:
 // Debounce the fetch to reduce API calls

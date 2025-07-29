@@ -4,25 +4,12 @@ import placeholderImg from '../../assets/placeholderImg.png';
 
 
 function Gifs({exercises = [], onGifSelect}) {
-    
+
     // Initialize selectedExercises from localStorage
     const [selected, setSelected] = useState(() => {
         const json = localStorage.getItem('exercises.selected');
         return json ? JSON.parse(json) : [];
     });
-
-    const handleSelect = (item) => {
-        setSelected((prev) => {
-            if (!prev.some(x => x.id === item.id)) {
-                return [...prev, item];
-            }
-            return prev;
-        });
-    }
-
-    const handleRemove = (item) => {
-        setSelected((prev) => prev.filter(x => x.id !== item.id));
-    }
 
     useEffect(() => {
         localStorage.setItem('selectedExercises', JSON.stringify(selected));
@@ -57,7 +44,10 @@ export default Gifs;
 
 // TO DO:
 // Need to save data to local storage to pull into routine page
-// Need ability to select more than 1 exercise at a time to display, use array?
+// LocalStorage sometimes seems to clear itself? 
+
+// DONE:
+// Ability to select more than 1 exercise at a time to display, used array.
 
 
 // Demo Gifs

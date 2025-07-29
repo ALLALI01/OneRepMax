@@ -9,7 +9,6 @@ import styles from './Exercises.module.css';
 function Exercises() {
     const [results, setResults] = useState([]);
 
-// Initialize selectedExercises from localStorage
     const [selectedExercises, setSelectedExercises] = useState(() => {
         const saved = localStorage.getItem('selectedExercises');
         return saved ? JSON.parse(saved) : [];
