@@ -1,7 +1,7 @@
 import styles from './SearchResult.module.css';
 
 function SearchResult({ result, onSelect, onClearSearch }) {
-    const handleClick = () => {
+    const handleResultClick = () => {
         onSelect(result);
         if (onClearSearch) {
             onClearSearch();
@@ -9,7 +9,7 @@ function SearchResult({ result, onSelect, onClearSearch }) {
     }
 
     return (
-        <div className={styles.searchResult} onClick={handleClick}>{result.name}</div>
+        <div className={styles.searchResult} onClick={handleResultClick}>{result.name}</div>
     );
 }
 

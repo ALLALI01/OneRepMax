@@ -6,7 +6,7 @@ function SearchResultsList({ results, onExerciseSelect, onClearSearch }) {
     return(
         <div className={styles.resultsList}>
             {
-                results.map((result, index) => {
+                results.map((result) => {
                     return (
                         <SearchResult
                         result={result}

@@ -1,4 +1,4 @@
-import React, {useState, useEffect } from 'react';
+import {useState, useEffect } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import styles from './SearchBar.module.css';
 import useDebounce from '../../Hooks/useDebounce.jsx';
@@ -8,8 +8,8 @@ import useDebounce from '../../Hooks/useDebounce.jsx';
 const URL = "https://exerciseapi-mocha.vercel.app/api/v1/exercises?offset=0&limit=100"; // Updated URL to self hosted Vercel API for 0 limits on requests
 
 function SearchBar({ setResults }) {
-    const [input, setInput] = useState('');
-    // const debouncedValue = useDebounce(value, 1000); // WHERE DOES THIS GO??? And also input? or value? IDK my API hates me
+    const [searchValue, setSearchValue] = useState('');
+    const debouncedSearchValue = useDebounce(searchValue, 500);
 
     const fetchData = async (value) => {
         if (!value.trim()) {
@@ -30,34 +30,45 @@ function SearchBar({ setResults }) {
         };
     };
 
-    const handleChange = (value) => {
-        setInput(value);
-        fetchData(value);
+    const handleSearchChange = (event) => {
+        setSearchValue(event.target.value);
     };
 
-    const clearSearch = () => {
-        setInput('');
-        setResults([]);
+    const clearSearchValue = () => { // How can I pass clearSearchValue as a prop so I can use this in the searchResult component in the handleResultClick function?
+        setSearchValue('');
     }
 
+    useEffect(() => {
+        fetchData(debouncedSearchValue);
+    }, [debouncedSearchValue]);
+
     return (
-        <div className={styles.searchContainer}>
+        <form
+            className={styles.searchContainer}
+            onSubmit={(event) => {
+                event.preventDefault();
+                fetchData(searchValue);
+            }}
+        >
             <FaSearch className={styles.searchIcon}/>
-            <input className={styles.searchForm}
-            type="text"
-            value={input}
-            onChange={(e) => handleChange(e.target.value)}
-            placeholder="Search for exercises..."
+            <input
+                className={styles.searchForm}
+                type="text"
+                value={searchValue}
+                onChange={handleSearchChange}
+                placeholder="Search for exercises..."
             />
-        <button type="submit" className={styles.searchSubmit} onClick={(e) => {
-            e.preventDefault();
-            fetchData(input);
-        }}>Search</button>
-        </div>
-);
-}
+            <button type="submit" className={styles.searchSubmit}>
+                Search
+            </button>
+        </form>
+    )};
 
 export default SearchBar;
 
 // TO DO:
 // Switch pages between all 15 pages of data in API call
+// Clear text from the search bar when a result is clicked
+
+// DONE:
+// Debounce the fetch to reduce API calls

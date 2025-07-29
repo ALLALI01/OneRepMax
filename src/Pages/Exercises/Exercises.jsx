@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Header from '../../Components/Header/Header.jsx';
 import Footer from '../../Components/Footer/Footer.jsx';
 import SearchBar from '../../Components/SearchBar/SearchBar.jsx';
@@ -9,6 +9,7 @@ import styles from './Exercises.module.css';
 function Exercises() {
     const [results, setResults] = useState([]);
 
+// Initialize selectedExercises from localStorage
     const [selectedExercises, setSelectedExercises] = useState(() => {
         const saved = localStorage.getItem('selectedExercises');
         return saved ? JSON.parse(saved) : [];
@@ -47,11 +48,9 @@ function Exercises() {
     const removeExercise = (exerciseId) => {
         setSelectedExercises(prev => prev.filter(ex => ex.exerciseId !== exerciseId));
     };
-
     const clearSearchResults = () => {
         setResults([]);
     };
-
     const clearAllExercises = () => {
         setSelectedExercises([]);
     }
@@ -59,7 +58,7 @@ function Exercises() {
     return (
         <>
             <Header />
-            <SearchBar setResults={setResults} />
+            <SearchBar setResults={setResults}/>
             {results.length > 0 && (
                 <SearchResultsList
                     results={results}

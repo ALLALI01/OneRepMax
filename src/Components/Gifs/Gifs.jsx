@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './Gifs.module.css';
 import placeholderImg from '../../assets/placeholderImg.png';
 
 
 function Gifs({exercises = [], onGifSelect}) {
+    
+    // Initialize selectedExercises from localStorage
     const [selected, setSelected] = useState(() => {
         const json = localStorage.getItem('exercises.selected');
         return json ? JSON.parse(json) : [];
