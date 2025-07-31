@@ -10,6 +10,7 @@ function Routine() {
 
     const [selectedExercises, setSelectedExercises] = useState(() => {
     const saved = localStorage.getItem('selectedExercises');
+    console.log('Loaded from localStorage:', saved);
     return saved ? JSON.parse(saved) : [];
     });
 

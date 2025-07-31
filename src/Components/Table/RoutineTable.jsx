@@ -3,21 +3,23 @@ import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table'
 import styles from './RoutineTable.module.css';
 
 function RoutineTable({ selectedExercises = [] }) {
+
+  const loadedExercises = selectedExercises.map(exercise => exercise.name);
   
   const initialWorkoutCycle = [
-    { week: "Test Week", sets: 1, reps: 1, exercises: selectedExercises.map(exercise => exercise.name), weight: "{testWeight}" },
-    { week: 1, sets: 4, reps: 6, exercises: ["Test1", "Test2", "Test3"], weight: "70% of 1RM" },
-    { week: 2, sets: 4, reps: 6, exercises: ["Test1", "Test2", "Test3"], weight: "72% of 1RM" },
-    { week: 3, sets: 4, reps: 5, exercises: ["Test1", "Test2", "Test3"], weight: "76% of 1RM" },
-    { week: "4 Rest", sets: 4, reps: 6, exercises: ["Test1", "Test2", "Test3"], weight: "60% rest week" },
-    { week: 5, sets: 3, reps: 5, exercises: ["Test1", "Test2", "Test3"], weight: "78% of 1RM" },
-    { week: 6, sets: 4, reps: 4, exercises: ["Test1", "Test2", "Test3"], weight: "83% of 1RM" },
-    { week: 7, sets: 4, reps: 3, exercises: ["Test1", "Test2", "Test3"], weight: "87% of 1RM" },
-    { week: "8 Rest", sets: 3, reps: 5, exercises: ["Test1", "Test2", "Test3"], weight: "60% rest week" },
-    { week: 9, sets: 4, reps: 3, exercises: ["Test1", "Test2", "Test3"], weight: "88% of 1RM" },
-    { week: 10, sets: 3, reps: 2, exercises: ["Test1", "Test2", "Test3"], weight: "91% of 1RM" },
-    { week: 11, sets: 3, reps: 1, exercises: ["Test1", "Test2", "Test3"], weight: "97% of 1RM" },
-    { week: "12 Rest", sets: 4, reps: 3, exercises: ["Test1", "Test2", "Test3"], weight: "65% rest week" },
+    { week: "Test Week", sets: 1, reps: 1, exercises: [loadedExercises], weight: "{testWeight}" },
+    { week: 1, sets: 4, reps: 6, exercises: [loadedExercises], weight: "70% of 1RM" },
+    { week: 2, sets: 4, reps: 6, exercises: [loadedExercises], weight: "72% of 1RM" },
+    { week: 3, sets: 4, reps: 5, exercises: [loadedExercises], weight: "76% of 1RM" },
+    { week: "4 Rest", sets: 4, reps: 6, exercises: [loadedExercises], weight: "60% rest week" },
+    { week: 5, sets: 3, reps: 5, exercises: [loadedExercises], weight: "78% of 1RM" },
+    { week: 6, sets: 4, reps: 4, exercises: [loadedExercises], weight: "83% of 1RM" },
+    { week: 7, sets: 4, reps: 3, exercises: [loadedExercises], weight: "87% of 1RM" },
+    { week: "8 Rest", sets: 3, reps: 5, exercises: [loadedExercises], weight: "60% rest week" },
+    { week: 9, sets: 4, reps: 3, exercises: [loadedExercises], weight: "88% of 1RM" },
+    { week: 10, sets: 3, reps: 2, exercises: [loadedExercises], weight: "91% of 1RM" },
+    { week: 11, sets: 3, reps: 1, exercises: [loadedExercises], weight: "97% of 1RM" },
+    { week: "12 Rest", sets: 4, reps: 3, exercises: [loadedExercises], weight: "65% rest week" },
   ];
 
   const [workoutCycle, setWorkoutCycle] = useState(initialWorkoutCycle);

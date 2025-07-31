@@ -19,12 +19,14 @@ function Gifs({ removeExercise, selectedExercises = [] }) {
             <div className={styles.gifContainer}>
                 {selectedExercises.map((exercise) => (
                     <div key={exercise.exerciseId} className={styles.gifDetails}>
-                        <h3>{exercise.name}</h3>
-                        <h4>Target Muscles: {exercise.targetMuscles}</h4>
+                        <h2 className={styles.exerciseName} onClick={() => handleGifClick(exercise.exerciseId)}>{exercise.name}</h2>
+                        <h4>Target Muscles:</h4>
+                        <p>{exercise.targetMuscles}</p>
+                        <h4>Instructions:</h4>
                         <p>{exercise.instructions || 'No instructions available'}</p>
-                        <img src={exercise.gifUrl || placeholderImg}
+                        {/* <img src={exercise.gifUrl || placeholderImg}
                         alt={`${exercise.name} demonstration`} className={styles.gif}
-                        onClick={() => handleGifClick(exercise.exerciseId)}/>
+                        onClick={() => handleGifClick(exercise.exerciseId)}/> */}
                     </div>
                 ))}
             </div>
