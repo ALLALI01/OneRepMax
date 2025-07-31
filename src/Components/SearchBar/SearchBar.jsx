@@ -3,12 +3,11 @@ import { FaSearch } from 'react-icons/fa';
 import styles from './SearchBar.module.css';
 import useDebounce from '../../Hooks/useDebounce.jsx';
 
-// const URL = "https://www.exercisedb.dev/api/v1/exercises"; OLD
-// const URL = "https://exercisedb-api1.p.rapidapi.com/api/v1/exercises/search"; OLD
+// const URL = "https://www.exercisedb.dev/api/v1/exercises"; OLD***
+// const URL = "https://exercisedb-api1.p.rapidapi.com/api/v1/exercises/search"; OLD***
 const URL = "https://exerciseapi-mocha.vercel.app/api/v1/exercises?offset=0&limit=100"; // Updated URL to self hosted Vercel API for 0 limits on requests
 
-function SearchBar({ setResults }) {
-    const [searchValue, setSearchValue] = useState('');
+function SearchBar({ setResults, searchValue, setSearchValue }) {
     const debouncedSearchValue = useDebounce(searchValue, 500);
 
     const fetchData = async (value) => {
@@ -33,10 +32,6 @@ function SearchBar({ setResults }) {
     const handleSearchChange = (event) => {
         setSearchValue(event.target.value);
     };
-
-    const clearSearchValue = () => { // How can I pass clearSearchValue as a prop so I can use this in the searchResult component in the handleResultClick function?
-        setSearchValue('');
-    }
 
     useEffect(() => {
         fetchData(debouncedSearchValue);
@@ -68,7 +63,7 @@ export default SearchBar;
 
 // TO DO:
 // Switch pages between all 15 pages of data in API call
-// Clear text from the search bar when a result is clicked {function clearSearchValue()}
 
 // DONE:
 // Debounce the fetch to reduce API calls
+// Clear text from the search bar when a result is clicked

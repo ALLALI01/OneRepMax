@@ -7,23 +7,26 @@ import Gifs from '../../Components/Gifs/Gifs.jsx';
 import styles from './Exercises.module.css';
 
 function Exercises() {
-    const [results, setResults] = useState([]);
 
+    // Set state for components
+    const [results, setResults] = useState([]);
+    const [searchValue, setSearchValue] = useState('');
     const [selectedExercises, setSelectedExercises] = useState(() => {
         const saved = localStorage.getItem('selectedExercises');
         return saved ? JSON.parse(saved) : [];
     });
 
+    // Use Local Storage
     useEffect(() => {
         console.log('Saving to localStorage:', selectedExercises);
         localStorage.setItem('selectedExercises', JSON.stringify(selectedExercises));
     }, [selectedExercises]);
-
     useEffect(() => {
         const saved = localStorage.getItem('selectedExercises');
         console.log('Loaded from localStorage:', saved);
     }, []);
 
+    // Add an exercise
     const addExercise = (exercise) => {
         const existingExercise = selectedExercises.find((ex) => ex.exerciseId === exercise.exerciseId);
         console.log('Existing exercise found:', existingExercise);
@@ -44,11 +47,9 @@ function Exercises() {
         console.log('Selected exercises updated:', selectedExercises);
     }, [selectedExercises]);
 
+    // Remove an exercise by Gif click or remove all by button click
     const removeExercise = (exerciseId) => {
         setSelectedExercises(prev => prev.filter(ex => ex.exerciseId !== exerciseId));
-    };
-    const clearSearchResults = () => {
-        setResults([]);
     };
     const clearAllExercises = () => {
         setSelectedExercises([]);
@@ -57,12 +58,16 @@ function Exercises() {
     return (
         <>
             <Header />
-            <SearchBar setResults={setResults}/>
+            <SearchBar
+            setResults={setResults}
+            searchValue={searchValue}
+            setSearchValue={setSearchValue}
+            />
             {results.length > 0 && (
                 <SearchResultsList
                     results={results}
                     onExerciseSelect={addExercise}
-                    onClearSearch={clearSearchResults}
+                    setSearchValue={setSearchValue}
                 />
             )}
             <div className={styles.selectedExercises}>
@@ -72,7 +77,7 @@ function Exercises() {
                 ))}
                 <button className={styles.clearButton} onClick={clearAllExercises}>Clear All</button>
             </div>
-            <Gifs exercises={selectedExercises} onGifSelect={removeExercise} />
+            <Gifs selectedExercises={selectedExercises} removeExercise={removeExercise} />
             <Footer />
         </>
     );

@@ -2,23 +2,14 @@ import { useState, useEffect } from 'react';
 import styles from './Gifs.module.css';
 import placeholderImg from '../../assets/placeholderImg.png';
 
+function Gifs({ removeExercise, selectedExercises = [] }) {
 
-function Gifs({exercises = [], onGifSelect}) {
-
-    // Initialize selectedExercises from localStorage
-    const [selected, setSelected] = useState(() => {
-        const json = localStorage.getItem('exercises.selected');
-        return json ? JSON.parse(json) : [];
-    });
-
-    useEffect(() => {
-        localStorage.setItem('selectedExercises', JSON.stringify(selected));
-    }, [selected]);
-
+    // Use removeExercise as a prop from exercise page to remove exercise on gif click
     const handleGifClick = (exerciseId) => {
-        onGifSelect(exerciseId);
+        removeExercise(exerciseId);
     }
-    if (exercises.length === 0) {
+
+    if (selectedExercises.length === 0) {
         return <div className={styles.noGifs}>
             <p>No exercises selected</p>
             <a href="https://www.exercisedb.dev/" target="_blank"><img src={placeholderImg} alt="Exercise DB image" className={styles.placeholderImg}/></a>
@@ -26,9 +17,10 @@ function Gifs({exercises = [], onGifSelect}) {
     } else {
         return (
             <div className={styles.gifContainer}>
-                {exercises.map((exercise) => (
+                {selectedExercises.map((exercise) => (
                     <div key={exercise.exerciseId} className={styles.gifDetails}>
                         <h3>{exercise.name}</h3>
+                        <h4>Target Muscles: {exercise.targetMuscles}</h4>
                         <p>{exercise.instructions || 'No instructions available'}</p>
                         <img src={exercise.gifUrl || placeholderImg}
                         alt={`${exercise.name} demonstration`} className={styles.gif}
@@ -43,11 +35,11 @@ function Gifs({exercises = [], onGifSelect}) {
 export default Gifs;
 
 // TO DO:
-// Need to save data to local storage to pull into routine page
 // LocalStorage sometimes seems to clear itself? 
 
 // DONE:
 // Ability to select more than 1 exercise at a time to display, used array.
+// Save data to local storage to pull into routine page
 
 
 // Demo Gifs

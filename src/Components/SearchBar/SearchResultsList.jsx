@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
-import SearchResult from './SeachResult.jsx';
+import SearchResult from './SearchResult.jsx';
 import styles from './SearchResultsList.module.css';
 
-function SearchResultsList({ results, onExerciseSelect, onClearSearch }) {
+function SearchResultsList({ results, onExerciseSelect, setSearchValue }) {
     return(
         <div className={styles.resultsList}>
             {
@@ -12,7 +11,7 @@ function SearchResultsList({ results, onExerciseSelect, onClearSearch }) {
                         result={result}
                         key={result.exerciseId}
                         onSelect={onExerciseSelect}
-                        onClearSearch={onClearSearch}
+                        setSearchValue={setSearchValue}
                         />
                     );
                 })

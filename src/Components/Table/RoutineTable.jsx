@@ -1,21 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import styles from './Table.module.css';
+import React, { useState } from 'react';
+import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table'
+import styles from './RoutineTable.module.css';
 
-function Table() {
-
-  const [selected, setSelected] = useState(() => {
-  const json = localStorage.getItem('exercises.selected');
-  return json ? JSON.parse(json) : [];
-  });
-
-  useEffect(() => {
-    localStorage.setItem('selectedExercises', JSON.stringify(selected));
-    }, [selected]);
-
-  const selectedExercises = selected.map(exercise => exercise.name)
+function RoutineTable({ selectedExercises = [] }) {
   
   const initialWorkoutCycle = [
-    { week: "Test Week", sets: 1, reps: 1, exercises: [selectedExercises], weight: "{testWeight}" },
+    { week: "Test Week", sets: 1, reps: 1, exercises: selectedExercises.map(exercise => exercise.name), weight: "{testWeight}" },
     { week: 1, sets: 4, reps: 6, exercises: ["Test1", "Test2", "Test3"], weight: "70% of 1RM" },
     { week: 2, sets: 4, reps: 6, exercises: ["Test1", "Test2", "Test3"], weight: "72% of 1RM" },
     { week: 3, sets: 4, reps: 5, exercises: ["Test1", "Test2", "Test3"], weight: "76% of 1RM" },
@@ -70,29 +60,29 @@ function Table() {
     <div className={styles.routineContainer}>
       <h1>Your Custom Routine</h1>
       {cycles.map((cycle, cycleIdx) => (
-        <table className={styles.tableContainer} key={cycleIdx}>
+        <Table className={styles.tableContainer} key={cycleIdx}>
           <caption
             className={styles.cycleCaption} style={{ backgroundColor: captionColors[cycleIdx % captionColors.length] }}>Cycle {cycleIdx + 1}
           </caption>
-          <thead>
-            <tr>
-              <th>Week</th>
-              <th>Exercise</th>
-              <th>Sets</th>
-              <th>Reps</th>
-              <th>Weight</th>
-            </tr>
-          </thead>
-          <tbody>
+          <Thead>
+            <Tr>
+              <Th>Week</Th>
+              <Th>Exercise</Th>
+              <Th>Sets</Th>
+              <Th>Reps</Th>
+              <Th>Weight</Th>
+            </Tr>
+          </Thead>
+          <Tbody>
             {cycle.map((weekData, weekIdx) => (
               <React.Fragment key={weekData.week + '-' + cycleIdx}>
                 {weekData.exercises.map((exercise, index) => (
-                  <tr key={`${weekData.week}-${index}-${cycleIdx}`}>
-                    {index === 0 && <td rowSpan={weekData.exercises.length}>{weekData.week}</td>}
-                    <td>{exercise}</td>
-                    {index === 0 && <td rowSpan={weekData.exercises.length}>{weekData.sets}</td>}
-                    {index === 0 && <td rowSpan={weekData.exercises.length}>{weekData.reps}</td>}
-                    <td id="tableWeightData">
+                  <Tr key={`${weekData.week}-${index}-${cycleIdx}`}>
+                    {index === 0 && <Td rowSpan={weekData.exercises.length}>{weekData.week}</Td>}
+                    <Td>{exercise}</Td>
+                    {index === 0 && <Td rowSpan={weekData.exercises.length}>{weekData.sets}</Td>}
+                    {index === 0 && <Td rowSpan={weekData.exercises.length}>{weekData.reps}</Td>}
+                    <Td id="tableWeightData">
                       {weekIdx === 0 ? (
                         <input
                           type="number"
@@ -103,13 +93,13 @@ function Table() {
                           placeholder="Enter 1RM"
                           className={styles.testWeekInput}
                         />) : (weekData.weight)}
-                    </td>
-                  </tr>
+                    </Td>
+                  </Tr>
                 ))}
               </React.Fragment>
             ))}
-          </tbody>
-        </table>
+          </Tbody>
+        </Table>
       ))}
       <div className={styles.buttonContainer}>
         <button className={styles.tableButton} onClick={repeatCycle}>Add New Cycle</button>
@@ -119,7 +109,7 @@ function Table() {
   );
 }
 
-export default Table;
+export default RoutineTable;
 
 // DONE:
 // Separate into tables of "12 week cycles" starting with a test week, add button to repeat cycle
