@@ -4,7 +4,7 @@ import placeholderImg from '../../assets/placeholderImg.png';
 
 function Gifs({ removeExercise, selectedExercises = [] }) {
 
-    // Use removeExercise as a prop from exercise page to remove exercise on gif click
+    // Use removeExercise as a prop from exercise page to remove exercise on gif-click
     const handleGifClick = (exerciseId) => {
         removeExercise(exerciseId);
     }

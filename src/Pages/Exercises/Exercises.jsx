@@ -8,23 +8,21 @@ import styles from './Exercises.module.css';
 
 function Exercises() {
 
-    // Set state for components
+    // Set state for search components
     const [results, setResults] = useState([]);
     const [searchValue, setSearchValue] = useState('');
+    // Set state for exercises, starting with any saved data in local storage
     const [selectedExercises, setSelectedExercises] = useState(() => {
         const saved = localStorage.getItem('selectedExercises');
+        console.log('Loaded from localStorage:', saved);
         return saved ? JSON.parse(saved) : [];
     });
 
-    // Use Local Storage
+    // Save to Local Storage
     useEffect(() => {
         console.log('Saving to localStorage:', selectedExercises);
         localStorage.setItem('selectedExercises', JSON.stringify(selectedExercises));
     }, [selectedExercises]);
-    useEffect(() => {
-        const saved = localStorage.getItem('selectedExercises');
-        console.log('Loaded from localStorage:', saved);
-    }, []);
 
     // Add an exercise
     const addExercise = (exercise) => {
@@ -43,11 +41,7 @@ function Exercises() {
         }
     };
 
-    useEffect(() => {
-        console.log('Selected exercises updated:', selectedExercises);
-    }, [selectedExercises]);
-
-    // Remove an exercise by Gif click or remove all by button click
+    // Remove an exercise by gif-click || Remove all by button-click
     const removeExercise = (exerciseId) => {
         setSelectedExercises(prev => prev.filter(ex => ex.exerciseId !== exerciseId));
     };
