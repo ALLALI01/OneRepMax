@@ -1,49 +1,118 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table'
 import styles from './RoutineTable.module.css';
 
 function RoutineTable({ selectedExercises = [] }) {
 
+  const [testWeight, setTestWeight] = useState([]);
+
   const loadedExercises = selectedExercises.map(exercise => exercise.name);
   
   const initialWorkoutCycle = [
-    { week: "Test Week", sets: 1, reps: 1, exercises: [loadedExercises], weight: "{testWeight}" },
-    { week: 1, sets: 4, reps: 6, exercises: [loadedExercises], weight: "70% of 1RM" },
-    { week: 2, sets: 4, reps: 6, exercises: [loadedExercises], weight: "72% of 1RM" },
-    { week: 3, sets: 4, reps: 5, exercises: [loadedExercises], weight: "76% of 1RM" },
-    { week: "4 Rest", sets: 4, reps: 6, exercises: [loadedExercises], weight: "60% rest week" },
-    { week: 5, sets: 3, reps: 5, exercises: [loadedExercises], weight: "78% of 1RM" },
-    { week: 6, sets: 4, reps: 4, exercises: [loadedExercises], weight: "83% of 1RM" },
-    { week: 7, sets: 4, reps: 3, exercises: [loadedExercises], weight: "87% of 1RM" },
-    { week: "8 Rest", sets: 3, reps: 5, exercises: [loadedExercises], weight: "60% rest week" },
-    { week: 9, sets: 4, reps: 3, exercises: [loadedExercises], weight: "88% of 1RM" },
-    { week: 10, sets: 3, reps: 2, exercises: [loadedExercises], weight: "91% of 1RM" },
-    { week: 11, sets: 3, reps: 1, exercises: [loadedExercises], weight: "97% of 1RM" },
-    { week: "12 Rest", sets: 4, reps: 3, exercises: [loadedExercises], weight: "65% rest week" },
+    { week: "Test Week", sets: 1, reps: 1, exercises: loadedExercises, weight: testWeight },
+    { week: 1, sets: 4, reps: 6, exercises: loadedExercises, weight: "70%" },
+    { week: 2, sets: 4, reps: 6, exercises: loadedExercises, weight: "72%" },
+    { week: 3, sets: 4, reps: 5, exercises: loadedExercises, weight: "76%" },
+    { week: "4 Rest", sets: 4, reps: 6, exercises: loadedExercises, weight: "60%" },
+    { week: 5, sets: 3, reps: 5, exercises: loadedExercises, weight: "78%" },
+    { week: 6, sets: 4, reps: 4, exercises: loadedExercises, weight: "83%" },
+    { week: 7, sets: 4, reps: 3, exercises: loadedExercises, weight: "87%" },
+    { week: "8 Rest", sets: 3, reps: 5, exercises: loadedExercises, weight: "60%" },
+    { week: 9, sets: 4, reps: 3, exercises: loadedExercises, weight: "88%" },
+    { week: 10, sets: 3, reps: 2, exercises: loadedExercises, weight: "91%" },
+    { week: 11, sets: 3, reps: 1, exercises: loadedExercises, weight: "97%" },
+    { week: "12 Rest", sets: 4, reps: 3, exercises: loadedExercises, weight: "65%" },
   ];
+
+  const handleCalculateWeight = () => {
+      setWorkoutCycle((prev) => {
+        const updated = [...prev];
+        const numCycles = Math.ceil(prev.length / 13);
+
+        // Loop through each cycle
+        for (let cycleIdx = 0; cycleIdx < numCycles; cycleIdx++) {
+          const testWeekIdx = cycleIdx * 13;
+          const testWeek = updated[testWeekIdx];
+          const testWeightObj = testWeight[cycleIdx] || {};
+
+          // Update the following 12 weeks based on the test week
+          for (let i = 1; i < 13; i++) {
+            const weekIdx = testWeekIdx + i;
+            if (!updated[weekIdx]) continue;
+
+            // Get the percentage from initialWorkoutCycle
+            const week = updated[weekIdx];
+
+            // Ensure we have a valid percentage to calculate
+            const templateWeek = initialWorkoutCycle[i];
+            const percentMatch = typeof templateWeek.weight === "string" && templateWeek.weight.match(/(\d+)%/);
+            if (!percentMatch) continue;
+
+            // Calculate new weights for each exercise
+            const percent = parseFloat(percentMatch[1]) / 100;
+            const newWeight = {};
+
+            // Loop through each exercise to calculate the new weight
+            week.exercises.forEach((exercise) => {
+              const oneRM = parseFloat(testWeightObj[exercise]);
+              if (!isNaN(oneRM)) {
+                newWeight[exercise] = Math.round(oneRM * percent);
+              } else {
+                newWeight[exercise] = "";
+              }
+            });
+
+            updated[weekIdx] = { ...week, weight: newWeight };
+          }
+        }
+        return updated;
+      });
+    };
 
   const [workoutCycle, setWorkoutCycle] = useState(initialWorkoutCycle);
 
-  const cycles = [];
-  for (let i = 0; i < workoutCycle.length; i += 13) {
-    cycles.push(workoutCycle.slice(i, i + 13));
-  }
+  const cycles = useMemo(() => {
+    const cycleArray = [];
+    for (let i = 0; i < workoutCycle.length; i += 13) {
+      cycleArray.push(workoutCycle.slice(i, i + 13));
+    }
+    return cycleArray;
+  }, [workoutCycle]);
 
-  const [testWeight, setTestWeight] = useState(Array(cycles.length).fill(""));
+  const adjustedTestWeight = useMemo(() => {
+    const currentCycles = cycles.length;
+    const currentTestWeightLength = testWeight.length;
+
+    if (currentTestWeightLength < currentCycles) {
+      return [
+        ...testWeight,
+        ...Array(currentCycles - currentTestWeightLength).fill(""),
+      ];
+    } else if (currentTestWeightLength > currentCycles) {
+      return testWeight.slice(0, currentCycles);
+    }
+
+    return testWeight;
+  }, [testWeight, cycles.length]);
 
   const handleTestWeekInput = (e, cycleIdx) => {
-    const testWeight = e.target.value;
+    const value = e.target.value;
+
     setTestWeight((prev) => {
       const updated = [...prev];
-      updated[cycleIdx] = testWeight;
+      updated[cycleIdx] = value;
       return updated;
     });
 
-    setWorkoutCycle((prev) =>
-      prev.map((week, idx) =>
-        idx === 0 ? { ...week, weight: {testWeight} } : week
-      )
-    );
+    setWorkoutCycle((prev) => {
+      const globalIndexOfTestWeek = cycleIdx * 13;
+      return prev.map((week, idx) => {
+        if (idx === globalIndexOfTestWeek) {
+          return { ...week, weight: value };
+        }
+        return week;
+      });
+    });
   };
 
   const repeatCycle = () => {
@@ -88,13 +157,38 @@ function RoutineTable({ selectedExercises = [] }) {
                       {weekIdx === 0 ? (
                         <input
                           type="number"
-                          name={exercise.name}
-                          id={exercise.exerciseId}
-                          value={testWeight}
-                          onChange={handleTestWeekInput}
+                          name={exercise}
+                          value={
+                            (testWeight[cycleIdx] && testWeight[cycleIdx][exercise]) || ""
+                          }
+                          onChange={(e) => {
+                            const value = e.target.value;
+                            setTestWeight((prev) => {
+                              const updated = [...prev];
+                              if (!updated[cycleIdx]) updated[cycleIdx] = {};
+                              updated[cycleIdx] = { ...updated[cycleIdx], [exercise]: value };
+                              return updated;
+                            });
+                            setWorkoutCycle((prev) => {
+                              const globalIndexOfTestWeek = cycleIdx * 13;
+                              return prev.map((week, idx) => {
+                                if (idx === globalIndexOfTestWeek) {
+                                  const newWeight = { ...(week.weight || {}) };
+                                  newWeight[exercise] = value;
+                                  return { ...week, weight: newWeight };
+                                }
+                                return week;
+                              });
+                            });
+                          }}
                           placeholder="Enter 1RM"
                           className={styles.testWeekInput}
-                        />) : (weekData.weight)}
+                        />
+                      ) : (
+                        typeof weekData.weight === "object"
+                          ? weekData.weight[exercise] || ""
+                          : weekData.weight
+                      )}
                     </Td>
                   </Tr>
                 ))}
@@ -105,7 +199,7 @@ function RoutineTable({ selectedExercises = [] }) {
       ))}
       <div className={styles.buttonContainer}>
         <button className={styles.tableButton} onClick={repeatCycle}>Add New Cycle</button>
-        <button className={styles.tableButton} onClick={() => alert('Calculate functionality not implemented yet.')}>Calculate Weight</button>
+        <button className={styles.tableButton} onClick={handleCalculateWeight}>Calculate Weight</button>
       </div>
     </div>
   );
@@ -113,21 +207,25 @@ function RoutineTable({ selectedExercises = [] }) {
 
 export default RoutineTable;
 
+
 // DONE:
 // Separate into tables of "12 week cycles" starting with a test week, add button to repeat cycle
 // Each week should have each exercise listed, and sets/reps for that week
 // Each cycle should have a caption with a unique cycle number
 // Add color changing cycles for separation
-
-// TO DO:
 // Pull exercises from local storage to persist data from exercises page
 // Write functionality to calculate weight based on 1RM input from TEST WEEK
+
+
+// TO DO:
 // Add functionality to save the routine to local storage to track progress
+
 
 // *** STRETCH GOAL ***
 // Add functionality to input last set actual reps for each exercise
 // Add functionality to increase or decrease weight based on previous week last set actual reps for dynamic routine adjustment (IE: if else statement, if last set actual reps
 // is less than target, decrease weight by 5%, if last set actual reps is greater than target, increase weight by 5%)
+// Add user logins to allow multi-device viewing of routines and progress
 
 
 // Test Week: 1 set of 1, input max
